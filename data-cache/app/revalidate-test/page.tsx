@@ -1,55 +1,64 @@
 import Link from "next/link";
 import { getData } from "../helpers";
-import RickandMortyCard from "../components/RickandMortyCardProps";
+import Image from "next/image";
 
-const RICK_AND_MORTY_API_URL = "https://rickandmortyapi.com/api/character";
+const DOG_API_URL = `https://dog.ceo/api/breeds/image/random`;
 const REVALIDATE_SECONDS = 15;
 
 export default async function RevalidateTestPage() {
 	console.log(
-		`\n--- [Revalidate Test Page (revalidate: ${REVALIDATE_SECONDS}s)] START ---`
+		`\n--- [Revalidate Test Page (Dog API, revalidate: ${REVALIDATE_SECONDS}s)] START ---`
 	);
 
 	console.log(
 		"[Revalidate Test Page] Attempting fetch with time-based revalidation..."
 	);
-	const characters = await getData(RICK_AND_MORTY_API_URL, {
+
+	const dogData = await getData(DOG_API_URL, {
 		next: { revalidate: REVALIDATE_SECONDS },
 	});
 	console.log("[Revalidate Test Page] Fetch processed.");
 
-	const currentTime = new Date().toLocaleTimeString();
-	console.log(`[Revalidate Test Page] Page rendered at: ${currentTime}`);
+	const serverRenderTime = new Date().toLocaleTimeString();
+	console.log(`[Revalidate Test Page] Page rendered at: ${serverRenderTime}`);
+	const imageUrl = dogData?.message;
+	const apiStatus = dogData?.status;
 
 	console.log(
-		`--- [Revalidate Test Page (revalidate: ${REVALIDATE_SECONDS}s)] END ---`
+		`--- [Revalidate Test Page (Dog API, revalidate: ${REVALIDATE_SECONDS}s)] END ---`
 	);
 
 	return (
 		<div className="p-8">
 			<h1 className="text-3xl font-bold mb-6 text-center">
-				Time-Based Revalidation Test ({REVALIDATE_SECONDS}s)
+				Time-Based Revalidation Test ({REVALIDATE_SECONDS}s) - Dog API
 			</h1>
 			<p className="text-center mb-2">
-				This page fetches data with{" "}
-				<code>next: {"{ revalidate: { REVALIDATE_SECONDS } }"}</code>.
+				Fetching a random dog image with{" "}
+				<code>next: {"{ revalidate: REVALIDATE_SECONDS }"}</code>.
 			</p>
 			<p className="text-center mb-4">
-				Observe server logs. Initial load should be long. Subsequent loads
-				within {REVALIDATE_SECONDS}s should be short (cached). After{" "}
-				{REVALIDATE_SECONDS}s, the first load might still be short (stale data
-				served), while Next.js revalidates in the background.
+				Observe image change after revalidation window.
 			</p>
-			<p className="text-center mb-4 text-sm text-gray-500">
-				Page rendered at: {currentTime}
+			<p className="text-center mb-4 text-lg text-gray-500">
+				Page Server-Rendered at: {serverRenderTime}
 			</p>
-			<div className="flex flex-wrap gap-4 max-w-5xl mx-auto justify-center items-center mt-6">
-				{characters.results.map(
-					(post: { id: number; name: string; image: string }) => (
-						<RickandMortyCard key={post.id} name={post.name} url={post.image} />
-					)
-				)}
-			</div>
+			{apiStatus === "success" && imageUrl && (
+				<div className="flex flex-col items-center">
+					<p className="text-sm mb-2">Image URL: {imageUrl}</p>
+					<Image
+						src={imageUrl}
+						alt="A random dog"
+						width={400}
+						height={300}
+						priority
+						className="rounded-lg shadow-md object-contain max-h-80"
+					/>
+				</div>
+			)}
+			{apiStatus !== "success" && (
+				<p className="text-center text-red-500">Could not fetch dog image.</p>
+			)}
 			<div className="text-center mt-8">
 				<Link href="/" className="text-blue-500 hover:underline text-xl">
 					Go Home
