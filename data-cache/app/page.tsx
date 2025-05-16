@@ -48,6 +48,12 @@ export default async function Home() {
 				>
 					Go to Revalidate Test
 				</Link>
+				<Link
+					href="/on-demand-revalidate-test"
+					className="text-blue-500 hover:underline text-xl"
+				>
+					Go to On-Demand Revalidate Test
+				</Link>
 			</div>
 		</div>
 	);

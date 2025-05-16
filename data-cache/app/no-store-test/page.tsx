@@ -9,7 +9,6 @@ export default async function NoStoreTestPage() {
 	console.log("\n--- [No-Store Test Page Render] START ---");
 
 	console.log("[No-Store Test Page] Attempting fetch with 'no-store'...");
-	// Fetch data with cache: 'no-store'
 	const characters = await getData(RICK_AND_MORTY_API_URL, {
 		cache: "no-store",
 	});

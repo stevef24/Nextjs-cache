@@ -1,14 +1,39 @@
 export const getData = async (
 	apiUrl: string = "https://rickandmortyapi.com/api/character",
-	fetchOptions: RequestInit = {}
+	options?: {
+		tags?: string[];
+		revalidateTime?: number;
+	}
 ) => {
+	console.log(`[Server Helper - getData] Called for: ${apiUrl}`);
+	const fetchNextOptions: { tags?: string[]; revalidate?: number } = {};
+	const fetchInit: RequestInit = {};
+
+	if (options?.tags && options.tags.length > 0) {
+		console.log(
+			`[Server Helper - getData] Using tags: ${options.tags.join(", ")}`
+		);
+		fetchNextOptions.tags = options.tags;
+	}
+	if (typeof options?.revalidateTime === "number") {
+		console.log(
+			`[Server Helper - getData] Using revalidateTime: ${options.revalidateTime}s`
+		);
+		fetchNextOptions.revalidate = options.revalidateTime;
+	}
+
+	if (Object.keys(fetchNextOptions).length > 0) {
+		fetchInit.next = fetchNextOptions;
+	}
 	console.log(
-		`[Server Helper - getData] Called for: ${apiUrl} with options:`,
-		JSON.stringify(fetchOptions)
+		`[Server Helper - getData] fetch() called with init options: ${JSON.stringify(
+			fetchInit
+		)}`
 	);
+
 	const startTime = performance.now();
 
-	const response = await fetch(apiUrl, fetchOptions);
+	const response = await fetch(apiUrl, fetchInit);
 
 	const endTime = performance.now();
 	const duration = (endTime - startTime).toFixed(2);
@@ -23,6 +48,7 @@ export const getData = async (
 			`Failed to fetch data from ${apiUrl}. Status: ${response.status}`
 		);
 	}
+
 	const data = await response.json();
 	console.log(`[Server Helper - getData] JSON parsing complete for ${apiUrl}.`);
 	return data;

@@ -15,7 +15,7 @@ export default async function RevalidateTestPage() {
 	);
 
 	const dogData = await getData(DOG_API_URL, {
-		next: { revalidate: REVALIDATE_SECONDS },
+		revalidateTime: REVALIDATE_SECONDS,
 	});
 	console.log("[Revalidate Test Page] Fetch processed.");
 
