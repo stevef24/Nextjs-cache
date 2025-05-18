@@ -6,6 +6,8 @@ import CharacterSummary from "./components/CharacterSummary";
 
 const RICK_AND_MORTY_API_URL = "https://rickandmortyapi.com/api/character";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata() {
 	console.log("\n--- [generateMetadata - Home Page] START ---");
 	try {
