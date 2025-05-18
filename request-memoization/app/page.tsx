@@ -1,11 +1,9 @@
-import Link from "next/link";
 import RickandMortyCard from "./components/RickandMortyCardProps";
 import { getData } from "./helpers";
 import CharacterSummary from "./components/CharacterSummary";
 
 const RICK_AND_MORTY_API_URL = "https://rickandmortyapi.com/api/character";
 
-// generateMetadata also calling getData for the same resource
 export async function generateMetadata() {
 	console.log("\n--- [generateMetadata - Home Page] START ---");
 	try {
@@ -28,12 +26,10 @@ export async function generateMetadata() {
 export default async function Home() {
 	console.log("\n--- [Home Page Component Render] START ---");
 
-	// First call to getData in this render flow (could be page or metadata)
 	console.log("[Home Page Component] Attempting FIRST fetch call...");
 	const posts1 = await getData(RICK_AND_MORTY_API_URL);
 	console.log("[Home Page Component] FIRST fetch call processed.");
 
-	// Second, identical call to getData to demonstrate memoization
 	console.log(
 		"\n[Home Page Component] Attempting SECOND (identical) fetch call..."
 	);

@@ -3,6 +3,12 @@ export const getData = async (
 	options?: {
 		tags?: string[];
 		revalidateTime?: number;
+		cache?:
+			| "force-cache"
+			| "no-cache"
+			| "no-store"
+			| "only-if-cached"
+			| "default";
 	}
 ) => {
 	console.log(`[Server Helper - getData] Called for: ${apiUrl}`);

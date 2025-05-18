@@ -5,8 +5,6 @@ export const getData = async (
 
 	const startTime = performance.now();
 
-	// This fetch call is automatically memoized by Next.js for identical requests
-	// within the same render pass.
 	const response = await fetch(apiUrl);
 
 	const endTime = performance.now();
