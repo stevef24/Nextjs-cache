@@ -13,12 +13,14 @@ export async function generateMetadata() {
 		console.log("--- [generateMetadata - Home Page] END ---");
 		return {
 			title: `Rick and Morty: ${firstCharacterName}`,
+			description: "Explore characters from Rick and Morty universe",
 		};
 	} catch (error) {
 		console.error("[generateMetadata - Home Page] Error fetching data:", error);
 		console.log("--- [generateMetadata - Home Page] END ---");
 		return {
 			title: "Rick and Morty Characters",
+			description: "Explore characters from Rick and Morty universe",
 		};
 	}
 }
@@ -39,20 +41,38 @@ export default async function Home() {
 	console.log("\n--- [Home Page Component Render] END ---");
 
 	return (
-		<div className="p-8">
-			<h1 className="text-3xl font-bold mb-6 text-center">
-				Rick and Morty (Memoization Demo)
-			</h1>
-			<p className="text-center mb-4">
-				Observe server terminal logs for fetch durations.
-			</p>
-			<CharacterSummary />
-			<div className="flex flex-wrap gap-4 max-w-5xl mx-auto justify-center items-center">
-				{posts1.results.map(
-					(post: { id: number; name: string; image: string }) => (
-						<RickandMortyCard key={post.id} name={post.name} url={post.image} />
-					)
-				)}
+		<div className="min-h-screen bg-gradient-to-b from-black to-gray-900 text-white p-6 md:p-8">
+			<div className="max-w-7xl mx-auto">
+				<header className="mb-12 text-center">
+					<h1 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-cyan-400">
+						Rick and Morty
+					</h1>
+					<p className="text-gray-400 text-lg">
+						Memoization Demo — Check server logs for fetch durations
+					</p>
+				</header>
+
+				<CharacterSummary />
+
+				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
+					{posts1.results.map(
+						(character: {
+							id: number;
+							name: string;
+							image: string;
+							status: string;
+							species: string;
+						}) => (
+							<RickandMortyCard
+								key={character.id}
+								name={character.name}
+								url={character.image}
+								status={character.status}
+								species={character.species}
+							/>
+						)
+					)}
+				</div>
 			</div>
 		</div>
 	);
