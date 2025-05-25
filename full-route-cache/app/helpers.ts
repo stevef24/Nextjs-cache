@@ -1,13 +1,12 @@
 export const getData = async (
-	apiUrl: string = "https://rickandmortyapi.com/api/character"
+	apiUrl: string = "https://rickandmortyapi.com/api/character",
+	options?: RequestInit
 ) => {
 	console.log(`[Server Helper - getData] Called for: ${apiUrl}`);
 
 	const startTime = performance.now();
 
-	// This fetch call is automatically memoized by Next.js for identical requests
-	// within the same render pass.
-	const response = await fetch(apiUrl);
+	const response = await fetch(apiUrl, options);
 
 	const endTime = performance.now();
 	const duration = (endTime - startTime).toFixed(2);
