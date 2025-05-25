@@ -1,29 +1,16 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import Link from "next/link";
 import { revalidatePath, revalidateTag } from "next/cache";
 import RevalidateAPITimeButton from "@/components/RevalidateApiTimeButton";
-
-async function getTimeForHomePage(options: RequestInit = {}) {
-	const fetchUrl = "http://localhost:8080/time";
-	console.log(
-		`[nextjs-app/HomePage] Fetching time from ${fetchUrl} with options: ${JSON.stringify(
-			options
-		)}`
-	);
-	try {
-		const response = await fetch(fetchUrl, options);
-		if (!response.ok) return { time: `Error: API (${response.status})` };
-		return response.json();
-	} catch (error: any) {
-		return { time: "Error: Hono API Connection " + error.message };
-	}
-}
+import { fetchTimeFromHonoApi } from "./helpers";
 
 export default async function HomePage() {
 	const homePageRenderTime = new Date().toLocaleTimeString();
-	const { time: homeApiTime } = await getTimeForHomePage({
-		next: { tags: ["hono-api-time-tag"] },
-	});
+	const { time: homeApiTime } = await fetchTimeFromHonoApi(
+		{
+			next: { tags: ["hono-api-time-tag"] },
+		},
+		"HomePage"
+	);
 	console.log(
 		`[nextjs-app/HomePage] Page rendered at ${homePageRenderTime}. API time for home: ${homeApiTime}`
 	);
@@ -169,7 +156,7 @@ export default async function HomePage() {
 								<RevalidateAPITimeButton
 									onRevalidateAction={onRevalidateApiPathAction}
 									buttonText="Revalidate Path: /api-time"
-									className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition-all shadow-sm hover:shadow flex items-center justify-center"
+									className="cursor-pointer w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition-all shadow-sm hover:shadow flex items-center justify-center"
 								/>
 								<p className="text-xs text-slate-500 mt-1 ml-1">
 									Revalidates only the{" "}
@@ -183,7 +170,7 @@ export default async function HomePage() {
 								<RevalidateAPITimeButton
 									onRevalidateAction={onRevalidateApiTagAction}
 									buttonText="Revalidate Tag: 'hono-api-time-tag'"
-									className="w-full bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-700 hover:to-rose-700 text-white font-medium py-2 px-4 rounded-lg transition-all shadow-sm hover:shadow flex items-center justify-center"
+									className="cursor-pointer w-full bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-700 hover:to-rose-700 text-white font-medium py-2 px-4 rounded-lg transition-all shadow-sm hover:shadow flex items-center justify-center"
 								/>
 								<p className="text-xs text-slate-500 mt-1 ml-1">
 									Revalidates all data fetched with this tag

@@ -1,33 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Link from "next/link";
-
-async function getTimeFromApi(options: RequestInit = {}) {
-	const fetchUrl = "http://localhost:8080/time";
-	console.log(
-		`[nextjs-app/api-time/page.tsx] Fetching time from ${fetchUrl} with options: ${JSON.stringify(
-			options
-		)}`
-	);
-	try {
-		const response = await fetch(fetchUrl, options);
-		if (!response.ok) {
-			const errorText = await response.text();
-			console.error(
-				`[nextjs-app/api-time/page.tsx] API request failed: ${response.status}, ${errorText}`
-			);
-			return { time: `Error: API (${response.status}). Is Hono API running?` };
-		}
-		const data = await response.json();
-		return data;
-	} catch (error: any) {
-		console.error(`[nextjs-app/api-time/page.tsx] Fetch error:`, error.message);
-		return { time: "Error: Could not connect to Hono API." };
-	}
-}
+import { fetchTimeFromHonoApi } from "../helpers";
 
 export default async function APITimePage() {
-	const { time } = await getTimeFromApi({ cache: "no-store" });
+	const { time } = await fetchTimeFromHonoApi(
+		{ cache: "no-store" },
+		"APITimePage"
+	);
 
 	const pageRenderTime = new Date().toLocaleTimeString();
 	console.log(
@@ -103,12 +83,11 @@ export default async function APITimePage() {
 					</h2>
 					<div className="space-y-3 text-slate-600">
 						<p>
-							This page demonstrates static data fetching with{" "}
+							This page demonstrates dynamic data fetching by default using{" "}
 							<code className="px-1.5 py-0.5 bg-slate-100 rounded text-pink-600 text-sm">
-								cache: "force-cache"
+								cache: "no-store"
 							</code>
-							. The time shown above is cached at build time or during
-							revalidation.
+							. The time shown above is fetched fresh on every request.
 						</p>
 						<p>
 							Check the Next.js server console and Hono API console for detailed
@@ -145,7 +124,8 @@ export default async function APITimePage() {
 						To modify caching behavior, edit{" "}
 						<code className="px-1.5 py-0.5 bg-slate-100 rounded text-xs">
 							app/api-time/page.tsx
-						</code>
+						</code>{" "}
+						and the helper function's options.
 					</p>
 				</footer>
 			</div>
