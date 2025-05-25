@@ -27,7 +27,7 @@ async function getTimeFromApi(options: RequestInit = {}) {
 }
 
 export default async function APITimePage() {
-	const { time } = await getTimeFromApi({ cache: "force-cache" });
+	const { time } = await getTimeFromApi({ cache: "no-store" });
 
 	const pageRenderTime = new Date().toLocaleTimeString();
 	console.log(
@@ -77,7 +77,7 @@ export default async function APITimePage() {
 						</p>
 						<p className="text-slate-500">
 							<span className="px-2 py-1 bg-slate-100 rounded-full text-xs font-mono">
-								cache: force-cache
+								cache: no-store
 							</span>
 						</p>
 					</div>
