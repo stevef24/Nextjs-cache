@@ -112,7 +112,7 @@ export default async function HomePage() {
 							API.
 						</p>
 						<Link
-							href="/api-time"
+							href="/api-no-store"
 							className="group inline-flex items-center justify-center bg-gradient-to-r from-purple-600 to-pink-600 text-white font-medium py-3 px-6 rounded-lg transition-all hover:from-purple-700 hover:to-pink-700 shadow-sm hover:shadow"
 						>
 							<span>Visit API Time Demo</span>
@@ -177,6 +177,49 @@ export default async function HomePage() {
 								</p>
 							</div>
 						</div>
+					</div>
+					<div className="p-6 bg-white rounded-xl shadow-sm border border-slate-200 transition-all hover:shadow-md">
+						<h2 className="text-2xl font-semibold mb-3 text-slate-800 flex items-center">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								className="h-6 w-6 mr-2 text-sky-500"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+							>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth={2}
+									d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" // Re-using clock icon
+								/>
+							</svg>
+							Time-Based Revalidation
+						</h2>
+						<p className="text-slate-600 mb-4">
+							Data is re-fetched periodically from the API after a set time
+							interval.
+						</p>
+						<Link
+							href="/api-time-based"
+							className="group inline-flex items-center justify-center bg-gradient-to-r from-sky-500 to-cyan-500 text-white font-medium py-3 px-6 rounded-lg transition-all hover:from-sky-600 hover:to-cyan-600 shadow-sm hover:shadow"
+						>
+							<span>Visit Revalidation Demo</span>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								className="h-5 w-5 ml-2 transition-transform group-hover:translate-x-1"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+							>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth={2}
+									d="M14 5l7 7m0 0l-7 7m7-7H3"
+								/>
+							</svg>
+						</Link>
 					</div>
 				</section>
 

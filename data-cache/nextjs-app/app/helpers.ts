@@ -6,7 +6,7 @@ interface TimeResponse {
 }
 
 interface ErrorResponse {
-	time: string; // To match the expected structure, even for errors
+	time: string;
 }
 
 /**
