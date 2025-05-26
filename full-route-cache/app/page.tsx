@@ -54,7 +54,7 @@ export default async function Home() {
 								</strong>{" "}
 								In this file (`app/page.tsx`), uncomment the line:
 								<br />
-								<code className="bg-gray-200 px-1 rounded text-xs">
+								<code className="bg-gray-200/10 px-1 rounded text-xs">
 									{'// export const dynamic = "force-dynamic";'}
 								</code>
 							</li>
@@ -64,7 +64,7 @@ export default async function Home() {
 								</strong>{" "}
 								In this file (`app/page.tsx`), uncomment the line:
 								<br />
-								<code className="bg-gray-200 px-1 rounded text-xs">
+								<code className="bg-gray-200/10 px-1 rounded text-xs">
 									{"// export const revalidate = 0;"}
 								</code>
 							</li>
@@ -74,13 +74,13 @@ export default async function Home() {
 								the blocks for `cookies()` or `headers()`. Remember to also
 								uncomment the corresponding import at the top of the file:
 								<br />
-								<code className="bg-gray-200 px-1 rounded text-xs">
+								<code className="bg-gray-200/10 px-1 rounded text-xs">
 									{"// import { cookies, headers } from 'next/headers';"}
 								</code>
 								<br />
 								then, for example:
 								<br />
-								<code className="bg-gray-200 px-1 rounded text-xs">
+								<code className="bg-gray-200/10 px-1 rounded text-xs">
 									{"// const cookieStore = cookies();"}
 								</code>
 							</li>
@@ -89,7 +89,7 @@ export default async function Home() {
 								In `app/helpers.ts`, change the `fetch` call inside `getData`
 								from `fetch(url)` to:
 								<br />
-								<code className="bg-gray-200 px-1 rounded text-xs">
+								<code className="bg-gray-200/10 px-1 rounded text-xs">
 									{"fetch(url, { cache: 'no-store' })"}
 								</code>
 							</li>
@@ -98,7 +98,7 @@ export default async function Home() {
 								`app/helpers.ts`, change the `fetch` call inside `getData` from
 								`fetch(url)` to:
 								<br />
-								<code className="bg-gray-200 px-1 rounded text-xs">
+								<code className="bg-gray-200/10 px-1 rounded text-xs">
 									{"fetch(url, { next: { revalidate: 0 } })"}
 								</code>
 							</li>

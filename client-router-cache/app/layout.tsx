@@ -30,12 +30,6 @@ export default function RootLayout({
 							>
 								Home
 							</Link>
-							<Link
-								href="/about"
-								className="text-slate-300 hover:text-cyan-400 transition-colors"
-							>
-								About
-							</Link>
 						</div>
 					</nav>
 				</header>
