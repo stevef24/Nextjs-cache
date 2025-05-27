@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Full Route Cache Example
 
-## Getting Started
+This example demonstrates the **Full Route Cache** in Next.js.
 
-First, run the development server:
+The Full Route Cache automatically caches statically rendered routes (or pages) on the server. This means that for subsequent requests to the same page, Next.js can serve the cached HTML and assets directly, leading to very fast response times.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This cache is particularly effective for pages that are entirely static or can be pre-rendered at build time or on-demand and then cached.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## How to Run
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1.  **Navigate to this directory:**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+    ```bash
+    cd full-route-cache
+    ```
 
-## Learn More
+    (If you are in the root directory, otherwise navigate accordingly.)
 
-To learn more about Next.js, take a look at the following resources:
+2.  \*\*Install dependencies (if you haven't already for this project):
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    ```bash
+    pnpm install
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3.  **Build the application:**
 
-## Deploy on Vercel
+    ```bash
+    pnpm build
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    During the build process, Next.js will identify and pre-render static routes.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4.  **Start the application in production mode:**
+    ```bash
+    pnpm start
+    ```
+    It's important to run `pnpm start` (which serves the production build) to observe the Full Route Cache, as it's primarily a production optimization.
+
+Open your browser to `http://localhost:3000`. Navigate to different static pages in the example.
+
+To observe the caching:
+
+- The initial load of a static page might involve rendering, but subsequent visits (even after closing and reopening the browser, or by different users if the cache is shared at the CDN/server level) should be served much faster from the cache.
+- You can inspect the network headers or use browser developer tools to see if pages are being served from a cache (e.g., looking for cache-related headers or very fast load times without server processing indicators).
+
+For more details on the Full Route Cache, refer to the [official Next.js documentation](https://nextjs.org/docs/app/building-your-application/caching#full-route-cache).

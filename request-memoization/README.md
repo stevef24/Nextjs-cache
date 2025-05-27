@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Request Memoization Example
 
-## Getting Started
+This example demonstrates **Request Memoization** in Next.js.
 
-First, run the development server:
+Request Memoization is an optimization that caches the results of `fetch` requests (and some other functions) that occur within a single React render pass on the server or a single execution of a Route Handler. This means if you call the same `fetch` request with the same arguments multiple times in different components during one server-rendering lifecycle, the actual HTTP request will only be made once. Subsequent calls will reuse the memoized result.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This is distinct from the Data Cache or Full Route Cache, as its scope is limited to the duration of a single incoming request being processed by the server.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## How to Run
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1.  **Navigate to this directory:**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+    ```bash
+    cd request-memoization
+    ```
 
-## Learn More
+    (If you are in the root directory, otherwise navigate accordingly.)
 
-To learn more about Next.js, take a look at the following resources:
+2.  \*\*Install dependencies (if you haven't already for this project):
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    ```bash
+    pnpm install
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3.  **Build the application:**
 
-## Deploy on Vercel
+    ```bash
+    pnpm build
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4.  **Start the application:**
+    ```bash
+    pnpm start
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Open your browser to `http://localhost:3000`.
+
+To observe Request Memoization:
+
+- The example will likely have components or server-side logic that call the same `fetch` endpoint multiple times within a single request-response cycle.
+- Check the server-side logs (the terminal where you ran `pnpm start`). You should see evidence that even if the `fetch` call is invoked multiple times in the code (e.g., in different components rendered for the same page request), the underlying HTTP request to an external service (or a mock service if provided) is only made once per unique request during that cycle.
+
+For more details on Request Memoization, refer to the [official Next.js documentation](https://nextjs.org/docs/app/building-your-application/caching#request-memoization).

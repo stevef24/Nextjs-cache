@@ -3,7 +3,7 @@ import RickandMortyCard from "./components/RickandMortyCardProps";
 import { getData } from "./helpers";
 // import { cookies, headers } from "next/headers";
 
-// export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 
 // export const revalidate = 0;
 

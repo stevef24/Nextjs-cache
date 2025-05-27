@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Client-Router Cache Example
 
-## Getting Started
+This example demonstrates the **Client-side Router Cache** in Next.js.
 
-First, run the development server:
+The Client-side Router Cache stores the payload of visited routes in the browser. This allows for faster navigation between pages as Next.js can reuse the cached data instead of re-fetching it from the server.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## How to Run
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1.  **Navigate to this directory:**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+    ```bash
+    cd client-router-cache
+    ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+    (If you are in the root directory, otherwise navigate accordingly.)
 
-## Learn More
+2.  **Install dependencies (if you haven't already for this project):**
 
-To learn more about Next.js, take a look at the following resources:
+    ```bash
+    pnpm install
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3.  **Build the application:**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    ```bash
+    pnpm build
+    ```
 
-## Deploy on Vercel
+4.  **Start the application:**
+    ```bash
+    pnpm start
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Open your browser to `http://localhost:3000` and navigate between different pages. Observe the network requests in your browser's developer tools. You should see that subsequent visits to a page do not trigger new data fetches for already visited routes, showcasing the client-side cache in action.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+For more details on the Client-side Router Cache, refer to the [official Next.js documentation](https://nextjs.org/docs/app/building-your-application/caching#router-cache).

@@ -7,7 +7,6 @@ export default function HomePage() {
 
 			<Link
 				href="/about"
-				prefetch={false}
 				className="px-4 py-2 bg-teal-500 text-white rounded-lg"
 			>
 				About
